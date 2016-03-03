@@ -12,16 +12,16 @@ RUN sed -i '/user=mysql/amax_allowed_packet=32M' /etc/my.cnf
 #OTRS
 #RUN wget http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-4.0.10-01.noarch.rpm
 #RUN yum -y install otrs-4.0.10-01.noarch.rpm --skip-broken
-RUN wget http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-5.0.6-01.noarch.rpm
-RUN yum -y install otrs-5.0.6-01.noarch.rpm --skip-broken
+RUN wget http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-5.0.7-01.noarch.rpm
+RUN yum -y install otrs-5.0.7-01.noarch.rpm --skip-broken
 
 #OTRS COPY Configs
 ADD Config.pm /opt/otrs/Kernel/Config.pm
-RUN sed -i -e"s/mod_perl.c/mod_perl.so/" /etc/httpd/conf.d/zzz_otrs.conf
+RUN sed -i -e "s/mod_perl.c/mod_perl.so/" /etc/httpd/conf.d/zzz_otrs.conf
 
 #Get ITSM module
 #RUN wget ftp://ftp.otrs.org/pub/otrs/itsm/bundle4/ITSM-4.0.10.opm
-RUN wget http://ftp.otrs.org/pub/otrs/itsm/bundle5/ITSM-5.0.6.opm
+RUN wget http://ftp.otrs.org/pub/otrs/itsm/bundle5/ITSM-5.0.7.opm
 
 #reconfigure httpd
 RUN sed -i "s/error\/noindex.html/otrs\/index.pl/" /etc/httpd/conf.d/welcome.conf
