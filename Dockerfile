@@ -1,7 +1,7 @@
 FROM centos:centos6
 MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 RUN yum update -y
 RUN yum -y install openssh-server wget mysql-server mysql apache httpd-devel perl-core "perl(Crypt::SSLeay)" "perl(Net::LDAP)" "perl(URI)" mod_perl httpd procmail "perl(Date::Format)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(IO::Socket::SSL)" "perl(XML::Parser)" "perl(Apache2::Reload)" "perl(Crypt::Eksblowfish::Bcrypt)" "perl(Encode::HanExtra)" "perl(GD)" "perl(GD::Text)" "perl(GD::Graph)" "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(PDF::API2)" "perl(Text::CSV_XS)" "perl(YAML::XS)" curl
 
@@ -10,15 +10,15 @@ RUN sed -i '/user=mysql/akey_buffer_size=32M' /etc/my.cnf
 RUN sed -i '/user=mysql/amax_allowed_packet=32M' /etc/my.cnf
 
 #OTRS
-RUN wget http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-5.0.8-01.noarch.rpm
-RUN yum -y install otrs-5.0.8-01.noarch.rpm --skip-broken
+RUN wget http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-5.0.14-02.noarch.rpm
+RUN yum -y install otrs-5.0.14-02.noarch.rpm --skip-broken
 
 #OTRS COPY Configs
 ADD Config.pm /opt/otrs/Kernel/Config.pm
 RUN sed -i -e "s/mod_perl.c/mod_perl.so/" /etc/httpd/conf.d/zzz_otrs.conf
 
 #Get ITSM module
-RUN wget http://ftp.otrs.org/pub/otrs/itsm/bundle5/ITSM-5.0.8.opm
+RUN wget http://ftp.otrs.org/pub/otrs/itsm/bundle5/ITSM-5.0.14.opm
 
 #reconfigure httpd
 RUN sed -i "s/error\/noindex.html/otrs\/index.pl/" /etc/httpd/conf.d/welcome.conf
