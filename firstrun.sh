@@ -14,7 +14,7 @@ wait
 su -c "/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild" -s /bin/bash otrs &
 wait
 #/opt/otrs/bin/otrs.PackageManager.pl -a install -p /ITSM-5.0.8.opm &
-su -c "/opt/otrs/bin/otrs.Console.pl Admin::Package::Install /ITSM-5.0.14.opm" -s /bin/bash otrs &
+su -c "/opt/otrs/bin/otrs.Console.pl Admin::Package::Install /ITSM-5.0.16.opm" -s /bin/bash otrs &
 wait
 /opt/otrs/bin/Cron.sh start otrs &
 wait
