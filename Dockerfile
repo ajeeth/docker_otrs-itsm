@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN rpm -Uvh https://mirrors.tuna.tsinghua.edu.cn/epel/epel-release-latest-7.noarch.rpm
 RUN yum update -y
 RUN yum -y install openssh-server wget mysql-server mysql apache httpd-devel perl-core "perl(Crypt::SSLeay)" "perl(Net::LDAP)" "perl(URI)" mod_perl httpd procmail "perl(Date::Format)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(IO::Socket::SSL)" "perl(XML::Parser)" "perl(Apache2::Reload)" "perl(Crypt::Eksblowfish::Bcrypt)" "perl(Encode::HanExtra)" "perl(GD)" "perl(GD::Text)" "perl(GD::Graph)" "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(PDF::API2)" "perl(Text::CSV_XS)" "perl(YAML::XS)" curl
 
