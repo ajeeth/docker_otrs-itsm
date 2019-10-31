@@ -1,6 +1,6 @@
 # [docker_otrs-itsm](https://github.com/ajeeth/docker_otrs-itsm) / [otrs-itsm_auto](https://hub.docker.com/r/ajeeth/otrs-itsm_auto/)
 
-This docker container provides Otrs with ITSM with MySql backend on CentOS 6.
+This docker container provides Otrs with ITSM with MySql backend on CentOS 7.
 
 
 To run the container execute:
