@@ -1,18 +1,18 @@
-FROM centos:centos7
+FROM centos:centos6
 MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 
-#SYSTEMD
-ENV container docker
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
-systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
-VOLUME [ "/sys/fs/cgroup" ]
+#SYSTEMD centos7
+#ENV container docker
+#RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
+#systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+#rm -f /lib/systemd/system/multi-user.target.wants/*;\
+#rm -f /etc/systemd/system/*.wants/*;\
+#rm -f /lib/systemd/system/local-fs.target.wants/*; \
+#rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+#rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+#rm -f /lib/systemd/system/basic.target.wants/*;\
+#rm -f /lib/systemd/system/anaconda.target.wants/*;
+#VOLUME [ "/sys/fs/cgroup" ]
 
 RUN rpm -Uvh https://mirrors.tuna.tsinghua.edu.cn/epel/epel-release-latest-7.noarch.rpm
 RUN yum update -y
@@ -53,4 +53,4 @@ CMD ["/bin/bash -c 'for foo in *.dist; do cp $foo `basename $foo .dist`; done'"]
 
 USER root
 EXPOSE 22 80
-CMD ["/bin/bash", "/run.sh", "/usr/sbin/init"]
+CMD ["/bin/bash", "/run.sh"]
