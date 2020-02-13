@@ -1,4 +1,4 @@
-FROM centos:centos6
+FROM centos:7
 MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 
 #SYSTEMD centos7
@@ -14,17 +14,30 @@ MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 #rm -f /lib/systemd/system/anaconda.target.wants/*;
 #VOLUME [ "/sys/fs/cgroup" ]
 
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-RUN yum update -y
-RUN yum -y install openssh-server wget mysql-server mysql apache httpd-devel perl-core "perl(Crypt::SSLeay)" "perl(Net::LDAP)" "perl(URI)" mod_perl httpd procmail "perl(Date::Format)" "perl(LWP::UserAgent)" "perl(Net::DNS)" "perl(IO::Socket::SSL)" "perl(XML::Parser)" "perl(Apache2::Reload)" "perl(Crypt::Eksblowfish::Bcrypt)" "perl(Encode::HanExtra)" "perl(GD)" "perl(GD::Text)" "perl(GD::Graph)" "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(PDF::API2)" "perl(Text::CSV_XS)" "perl(YAML::XS)" curl
+
+RUN yum install -y yum-plugin-fastestmirror && \
+    yum install -y epel-release && \
+    yum update -y && \
+    yum -y install bzip2 cronie openssh-server wget curl mysql-server apache httpd-devel mysql mod_perl \
+    perl-core "perl(Crypt::SSLeay)" "perl(Net::LDAP)" "perl(URI)" \
+    procmail "perl(Date::Format)" "perl(LWP::UserAgent)" \
+    "perl(Net::DNS)" "perl(IO::Socket::SSL)" "perl(XML::Parser)" \
+    "perl(Apache2::Reload)" "perl(Crypt::Eksblowfish::Bcrypt)" \
+    "perl(Encode::HanExtra)" "perl(GD)" "perl(GD::Text)" "perl(GD::Graph)" \
+    "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(PDF::API2)" "perl(DateTime)" \
+    "perl(Text::CSV_XS)" "perl(YAML::XS)" "perl(Text::CSV_XS)" "perl(DBD::mysql)" \
+    rsyslog supervisor tar which && \
+    yum install -y http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-${OTRS_VERSION}.noarch.rpm && \
+    /opt/otrs/bin/otrs.CheckModules.pl && \
+    yum clean all
 
 #MYSQL
 RUN sed -i '/user=mysql/akey_buffer_size=32M' /etc/my.cnf
 RUN sed -i '/user=mysql/amax_allowed_packet=32M' /etc/my.cnf
 
 #OTRS
-RUN wget https://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.26-01.noarch.rpm
-RUN yum -y install otrs-6.0.26-01.noarch.rpm --skip-broken
+#RUN wget https://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.26-01.noarch.rpm
+#RUN yum -y install otrs-6.0.26-01.noarch.rpm --skip-broken
 
 #OTRS COPY Configs
 ADD Config.pm /opt/otrs/Kernel/Config.pm
