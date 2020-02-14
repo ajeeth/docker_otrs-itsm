@@ -18,7 +18,7 @@ MAINTAINER Ajeeth Samuel <ajeeth.samuel@gmail.com>
 RUN yum install -y yum-plugin-fastestmirror && \
     yum install -y epel-release && \
     yum update -y && \
-    yum -y install bzip2 cronie openssh-server wget curl mysql-server apache httpd-devel mysql mod_perl \
+    yum -y install bzip2 cronie openssh-server wget curl mariadb-server mariadb httpd httpd-devel mysql mod_perl \
     perl-core "perl(Crypt::SSLeay)" "perl(Net::LDAP)" "perl(URI)" \
     procmail "perl(Date::Format)" "perl(LWP::UserAgent)" \
     "perl(Net::DNS)" "perl(IO::Socket::SSL)" "perl(XML::Parser)" \
@@ -27,7 +27,7 @@ RUN yum install -y yum-plugin-fastestmirror && \
     "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(PDF::API2)" "perl(DateTime)" \
     "perl(Text::CSV_XS)" "perl(YAML::XS)" "perl(Text::CSV_XS)" "perl(DBD::mysql)" \
     rsyslog supervisor tar which && \
-    yum install -y http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-${OTRS_VERSION}.noarch.rpm && \
+    yum install -y https://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.26-01.noarch.rpm && \
     /opt/otrs/bin/otrs.CheckModules.pl && \
     yum clean all
 
